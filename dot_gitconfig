@@ -1,0 +1,45 @@
+# gitalias update:2026-11-04 22:16
+# curl https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt -o ~/.config/git/gitalias.gitconfig
+
+[core]
+  editor = nvim
+  pager = delta
+  longpaths = true
+
+[include]
+  path = ~/.config/git/gitalias.gitconfig
+  path = ~/.config/git/alias.gitconfig
+  path = ~/.config/git/fzf.gitconfig
+  path = ~/.config/git/delta.gitconfig
+  path = ~/.config/delta/kanagawa-wave.gitconfig
+
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  conflictstyle = zdiff3
+
+[diff]
+  colorMoved = default
+
+[help]
+  autocorrect = prompt
+
+[user]
+  email = s.fidanza@pm.me
+  name = sravioli
+  signingkey = ED51EC100AC291CA
+
+[credential "https://github.com"]
+  helper =
+  helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !/usr/bin/gh auth git-credential
+[init]
+  defaulBranch = main
+[commit]
+  gpgsign = true
+[tag]
+  gpgSign = true
+

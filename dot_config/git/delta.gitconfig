@@ -1,0 +1,17 @@
+# vim: set filetype=gitconfig:
+#
+# delta related configuration
+# Requires: delta (https://github.com/dandavison/delta)
+#
+# Included from ~/.gitconfig via:
+#   [include]
+#     path = ~/.config/git/delta.gitconfig
+
+[delta]
+  features = kanagawa-wave
+  syntax-theme = kanagawa-wave
+  side-by-side = true
+  true-color = always
+  navigate = true    # use n and N to move between diff sections
+  hyperlinks = true
+  hyperlinks-file-link-format = "file://file/{path}:{line}"

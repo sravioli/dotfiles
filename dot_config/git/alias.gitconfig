@@ -1,0 +1,29 @@
+# vim: set filetype=gitconfig:
+#
+# all my aliases
+#
+# Included from ~/.gitconfig via:
+#   [include]
+#     path = ~/.config/git/alias.gitconfig
+
+[alias]
+  search-alias = "!f() { git aliases | rg $1; }; f"
+  blame-full = blame -CCCMwm
+  br = branch
+  brl = branch --list --verbose
+  brll = branch --list --all --all --verbose
+  brv = branch --list --verbose --verbose --color=always
+  latest = rev-parse HEAD
+  nuke = !git reset --hard HEAD && git clean -fdx
+  ps = push
+  reauthor = "!__git_commit_reauthor() { git commit --amend --no-edit --author=$1; }; __git_commit_reauthor"
+  retcon = !git commit --amend --no-edit && git push --force-with-lease
+  rm-tag = "!__git_remove_tag() { git tag -d $1 && git push origin --delete $1; }; __git_remove_tag"
+  rm-tags = git select-tag | xargs -I {} git rm-tag {}
+  st = status --short --branch
+  sw = switch
+  swc = switch --create
+  swf = "!__git_switch_feature() { git switch --create feature/zenith/$1; }; __git_switch_feature"
+  sync = !git fetch --all --multiple --append --tags --prune --prune-tags --verbose && git pull
+  ui = !gitui
+  unstage = restore --staged
