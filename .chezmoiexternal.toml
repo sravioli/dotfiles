@@ -1,0 +1,8 @@
+# Cloned only when missing; afterwards they're normal repos you pull/push yourself (no refreshPeriod).
+[".config/nvim"]
+type = "git-repo"
+url = "https://github.com/sravioli/nvim.git"
+
+[".config/wezterm"]
+type = "git-repo"
+url = "https://github.com/sravioli/wezterm.git"
