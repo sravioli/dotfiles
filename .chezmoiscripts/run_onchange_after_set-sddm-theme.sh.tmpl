@@ -1,0 +1,9 @@
+#!/bin/sh
+# Login screen theme lives in /etc and /usr (outside chezmoi). Writes to kde_settings.conf, the file
+# System Settings > Login Screen uses, so the theme can still be changed from there.
+# sddm/silent.conf.user hash: {{ include "sddm/silent.conf.user" | sha256sum }}
+theme=/usr/share/sddm/themes/silent
+[ -d "$theme" ] || { echo "sddm-silent-theme not installed; skipping login screen theme"; exit 0; }
+sudo kwriteconfig6 --file /etc/sddm.conf.d/kde_settings.conf --group Theme --key Current silent
+# .user overrides survive package upgrades; System Settings' theme Configure dialog edits the same file
+sudo install -m 644 "{{ .chezmoi.sourceDir }}/sddm/silent.conf.user" "$theme/configs/default.conf.user"
