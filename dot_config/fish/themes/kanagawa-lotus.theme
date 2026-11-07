@@ -1,0 +1,29 @@
+# name: 'Kanagawa Lotus'
+# preferred_background: f2ecbc
+# url: https://github.com/kanagawa-community/fish
+
+fish_color_normal 545464
+fish_color_command 4d699b
+fish_color_keyword 624c83
+fish_color_quote 6f894e
+fish_color_redirection cc6d00
+fish_color_end 4e8ca2
+fish_color_error e82424
+fish_color_param 5d57a3
+fish_color_option 5d57a3
+fish_color_comment 8a8980
+fish_color_selection --background=c9cbd1
+fish_color_search_match --background=b5cbd2
+fish_color_operator 836f4a
+fish_color_escape 6693bf
+fish_color_autosuggestion 8a8980
+fish_color_valid_path --underline
+fish_color_cwd 597b75
+fish_color_user 6f894e
+fish_color_host 4d699b
+fish_color_cancel 43436c
+fish_pager_color_progress 8a8980
+fish_pager_color_prefix 597b75
+fish_pager_color_completion 545464
+fish_pager_color_description 8a8980
+fish_pager_color_selected_background --background=c9cbd1

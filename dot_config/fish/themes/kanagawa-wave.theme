@@ -1,0 +1,29 @@
+# name: 'Kanagawa Wave'
+# preferred_background: 1f1f28
+# url: https://github.com/kanagawa-community/fish
+
+fish_color_normal dcd7ba
+fish_color_command 7e9cd8
+fish_color_keyword 957fb8
+fish_color_quote 98bb6c
+fish_color_redirection ffa066
+fish_color_end 9cabca
+fish_color_error e82424
+fish_color_param b8b4d0
+fish_color_option b8b4d0
+fish_color_comment 727169
+fish_color_selection --background=223249
+fish_color_search_match --background=2d4f67
+fish_color_operator c0a36e
+fish_color_escape 7fb4ca
+fish_color_autosuggestion 727169
+fish_color_valid_path --underline
+fish_color_cwd 7aa89f
+fish_color_user 98bb6c
+fish_color_host 7e9cd8
+fish_color_cancel c8c093
+fish_pager_color_progress 727169
+fish_pager_color_prefix 7aa89f
+fish_pager_color_completion dcd7ba
+fish_pager_color_description 727169
+fish_pager_color_selected_background --background=223249
