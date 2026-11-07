@@ -1,0 +1,6 @@
+#!/bin/sh
+# KDE keeps the profile picture in /var/lib/AccountsService (system-owned); set it from ~/.face the way System Settings does.
+# ~/.face hash: {{ include "dot_face" | sha256sum }}
+busctl call org.freedesktop.Accounts "/org/freedesktop/Accounts/User$(id -u)" \
+  org.freedesktop.Accounts.User SetIconFile s "$HOME/.face" \
+  || echo "Could not set profile picture; pick ~/.face in System Settings > Users"
