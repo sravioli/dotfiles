@@ -1,0 +1,94 @@
+#!/bin/sh
+# Download public-domain ukiyo-e prints from The Met's Open Access API as wallpapers.
+# usage: met-wallpapers [-d DIR] [-r WxH] [artist...]   (no artists: reads ~/.config/met-wallpapers/artists.txt)
+# Crops the white scan background, tape and rulers off, then keeps landscape images at least as big as the screens (no upscaling; Plasma's fill mode crops to fit).
+# shortcut: matches the artist by name only, so a few non-print objects slip through the size filter, prune by hand.
+set -eu
+api=https://collectionapi.metmuseum.org/public/collection/v1.1
+dir=$HOME/Pictures/met
+res=
+while getopts d:r: o; do
+  case $o in
+    d) dir=$OPTARG ;;
+    r) res=$OPTARG ;;
+    *) sed -n '3p' "$0" >&2; exit 2 ;;
+  esac
+done
+shift $((OPTIND - 1))
+artists=${XDG_CONFIG_HOME:-$HOME/.config}/met-wallpapers/artists.txt
+if [ $# -eq 0 ]; then
+  [ -r "$artists" ] || { echo "no artists given and $artists is missing" >&2; exit 1; }
+  while IFS= read -r line; do
+    case $line in '' | '#'*) ;; *) set -- "$@" "$line" ;; esac
+  done < "$artists"
+fi
+for c in curl jq identify; do command -v "$c" >/dev/null || { echo "missing: $c" >&2; exit 1; }; done
+
+# default: widest and tallest current mode across the enabled outputs, so every screen is covered
+if [ -z "$res" ]; then
+  res=$(kscreen-doctor -j 2>/dev/null | jq -r '[.outputs[] | select(.enabled) | . as $o | $o.modes[] | select(.id == $o.currentModeId) | .size]
+    | "\(map(.width) | max)x\(map(.height) | max)"' 2>/dev/null) || res=
+  case $res in [0-9]*x[0-9]*) ;; *) res=2560x1440; echo "could not read the screen size, assuming $res" >&2 ;; esac
+fi
+minw=${res%x*} minh=${res#*x}
+echo "keeping landscape images >= ${minw}x${minh} in $dir"
+
+# print the "WxH+X+Y" box of the print inside a scan, dropping the white scan background, tape and rulers; nothing if unsure
+# usage: met-wallpapers [-d DIR] [-r WxH] [artist...]   (no artists: reads ~/.config/met-wallpapers/artists.txt)
+crop_box() {
+  m=$(mktemp --suffix=.png)
+  magick "$1" -resize 1000x -colorspace Gray -threshold 96% -negate -morphology Open disk:4 "$m" 2>/dev/null || { rm -f "$m"; return; }
+  # rows and columns at least 75% as full as the fullest are the print; a ruler or tape is narrower, so it drops out
+  rb=$(magick "$m" -scale 1x\! -auto-level -threshold 75% -format %@ info: 2>/dev/null)
+  cb=$(magick "$m" -scale x1\! -auto-level -threshold 75% -format %@ info: 2>/dev/null)
+  rm -f "$m"
+  h=${rb#*x} h=${h%%+*} y=${rb##*+}
+  w=${cb%%x*} x=${cb#*+} x=${x%%+*}
+  case $w$h$x$y in '' | *[!0-9]*) return ;; esac
+  w=$((w * $2 / 1000)) h=$((h * $2 / 1000)) x=$((x * $2 / 1000)) y=$((y * $2 / 1000))
+  # under 40% of the scan means a misdetection (e.g. no white border to find): keep the original
+  [ $((w * h * 100)) -ge $((40 * $2 * $3)) ] || return
+  echo "${w}x${h}+${x}+${y}"
+}
+
+mkdir -p "$dir"
+rejected=$dir/.rejected # ids already checked and too small, so reruns skip the download
+touch "$rejected"
+tmp=$(mktemp)
+trap 'rm -f "$tmp" "$tmp.jpg"' EXIT
+
+for artist in "$@"; do
+  echo "== $artist"
+  offset=0
+  while :; do
+    page=$(curl -fsS -G "$api/search" --data-urlencode "q=$artist" -d "artistOrCulture=true&isPublicDomain=true&hasImages=true&limit=500&offset=$offset")
+    echo "$page" | jq -r '.objectIDs // [] | .[]' | while read -r id; do
+      grep -qx "$id" "$rejected" && continue
+      set -- "$dir"/*\["$id"\].jpg; [ -e "$1" ] && continue
+      # tab-separated: artist, title, image url (empty unless public domain)
+      info=$(curl -fsS "${api%/v1.1}/v1/objects/$id" | jq -r 'select(.isPublicDomain and .primaryImage != "") | [.artistDisplayName, .title, .primaryImage] | @tsv') || continue
+      [ -n "$info" ] || continue
+      who=$(printf %s "$info" | cut -f1 | cut -d'|' -f1)
+      title=$(printf %s "$info" | cut -f2 | tr -d '/\\:*?"<>|' | cut -c1-90)
+      url=$(printf %s "$info" | cut -f3)
+      curl -fsS -o "$tmp" "$url" || { echo "  $id download failed" >&2; continue; }
+      size=$(identify -format '%w %h' "${tmp}[0]" 2>/dev/null) || { echo "$id" >> "$rejected"; continue; }
+      w=${size% *} h=${size#* }
+      # shortcut: re-encodes the JPEG once (q95) when it crops; lossless jpegtran crops need MCU-aligned boxes, not worth it
+      box=$(crop_box "$tmp" "$w" "$h") || box=
+      if [ -n "$box" ] && magick "$tmp" -crop "$box" +repage -quality 95 "$tmp.jpg" 2>/dev/null; then
+        mv "$tmp.jpg" "$tmp"
+        size=$(identify -format '%w %h' "${tmp}[0]") w=${size% *} h=${size#* }
+      fi
+      if [ "$w" -ge "$h" ] && [ "$w" -ge "$minw" ] && [ "$h" -ge "$minh" ]; then
+        mv "$tmp" "$dir/$title, $who [$id].jpg"
+        echo "  ${w}x${h} $title"
+      else
+        echo "$id" >> "$rejected"
+      fi
+    done
+    total=$(echo "$page" | jq '.total')
+    offset=$((offset + 500))
+    [ "$offset" -lt "$total" ] || break
+  done
+done

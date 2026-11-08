@@ -1,0 +1,14 @@
+# Artists met-wallpapers downloads when run without arguments, one per line, as the Met spells them.
+# Hokusai first, then his pupils and the other ukiyo-e / shin-hanga landscape printmakers.
+Katsushika Hokusai
+Totoya Hokkei
+Yashima Gakutei
+Utagawa Hiroshige
+Utagawa Kuniyoshi
+Keisai Eisen
+Utagawa Sadahide
+Kawanabe Kyosai
+Kobayashi Kiyochika
+Kawase Hasui
+Yoshida Hiroshi
+Itō Shinsui
