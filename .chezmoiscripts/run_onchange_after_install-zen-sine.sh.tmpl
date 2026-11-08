@@ -1,0 +1,42 @@
+#!/bin/sh
+# Installs Sine (Zen mod manager) the manual way from its docs, then seeds the mods from zen/sine-mods/.
+# Only fills in what's missing: Sine updates itself and its mods, and overwriting would downgrade them.
+# mods: {{ include "zen/sine-mods/mods.json" | sha256sum }}
+# mod settings: {{ include "zen/mod-prefs.js" | sha256sum }}
+set -eu
+zen=/opt/zen-browser-bin
+bootloader=https://github.com/sineorg/bootloader/releases/download/v0.1.4
+engine=https://github.com/CosmoCreeper/Sine/releases/download/v2.3.3/engine.zip
+[ -d "$zen" ] || { echo "zen-browser not installed; skipping Sine"; exit 0; }
+cfg="$HOME/.config/zen"
+# a fresh install has no profile until Zen's first start; a headless start creates it without a screen
+[ -f "$cfg/installs.ini" ] || timeout 60 zen-browser --headless --screenshot /dev/null about:blank >/dev/null 2>&1 || true
+profile=$(sed -n 's/^Default=//p' "$cfg/installs.ini" 2>/dev/null | head -1)
+[ -n "$profile" ] || { echo "no Zen profile found; open Zen once and run chezmoi apply again"; exit 0; }
+chrome="$cfg/$profile/chrome"
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+fetch() { curl -fsSL -o "$tmp/z.zip" "$1" && bsdtar -xf "$tmp/z.zip" -C "$2"; }
+
+if [ ! -f "$zen/config.js" ]; then
+  curl -fsSL -o "$tmp/program.zip" "$bootloader/program.zip"
+  sudo bsdtar -xf "$tmp/program.zip" -C "$zen"
+fi
+mkdir -p "$chrome/sine-mods"
+[ -f "$chrome/utils/chrome.manifest" ] || fetch "$bootloader/profile.zip" "$chrome"
+[ -f "$chrome/JS/sine.sys.mjs" ] || fetch "$engine" "$chrome"
+cp -r --update=none "{{ .chezmoi.sourceDir }}/zen/sine-mods/." "$chrome/sine-mods/"
+# mod settings (saved by zen/export-prefs.sh): replace those keys in prefs.js, which Zen rewrites on exit
+prefs="$cfg/$profile/prefs.js"
+if [ ! -s "{{ .chezmoi.sourceDir }}/zen/mod-prefs.js" ]; then
+  :  # nothing saved; an empty list would make awk read prefs.js as the key list and drop every line
+elif pgrep -x zen-bin >/dev/null; then
+  echo "Zen is running, so its mod settings weren't applied; close Zen and run: chezmoi apply"
+else
+  awk 'NR == FNR { k = $0; sub(/^user_pref\("/, "", k); sub(/".*/, "", k); keep[k] = 1; next }
+       { k = $0; sub(/^user_pref\("/, "", k); sub(/".*/, "", k); if (!(k in keep)) print }' \
+    "{{ .chezmoi.sourceDir }}/zen/mod-prefs.js" "$prefs" > "$tmp/prefs.js" 2>/dev/null || true
+  cat "{{ .chezmoi.sourceDir }}/zen/mod-prefs.js" >> "$tmp/prefs.js"
+  cp "$tmp/prefs.js" "$prefs"
+fi
+# Zen caches compiled chrome code; clearing it makes the next start load Sine (docs step 4)
+rm -rf "$HOME/.cache/zen/$profile/startupCache"

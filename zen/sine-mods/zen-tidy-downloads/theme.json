@@ -1,0 +1,61 @@
+{
+  "id": "zen-tidy-downloads",
+  "name": "Tidy Downloads",
+  "description": "Rename completed downloads with AI. The tooltip points at Zen's library button.",
+  "homepage": "https://github.com/Vertex-Mods/Zen-Tidy-Downloads",
+  "readme": "https://raw.githubusercontent.com/Vertex-Mods/Zen-Tidy-Downloads/refs/heads/main/README.md",
+  "image": "https://github.com/Vertex-Mods/Zen-Tidy-Downloads/blob/main/image.png?raw=true",
+  "style": {
+    "chrome": "chrome.css"
+  },
+  "scripts": {
+    "modules/tidy-downloads/tidy-downloads-utils.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 1
+    },
+    "modules/tidy-downloads/tidy-downloads-store.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 2
+    },
+    "modules/tidy-downloads/tidy-downloads-downloads-adapter.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 3
+    },
+    "modules/tidy-downloads/tidy-downloads-toasts.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 4
+    },
+    "modules/tidy-downloads/tidy-downloads-fileops.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 5
+    },
+    "modules/tidy-downloads/tidy-downloads-ai-rename.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 6
+    },
+    "modules/tidy-downloads/tidy-downloads-download-ui.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 7
+    },
+    "modules/tidy-downloads/tidy-downloads-tooltip.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 8
+    },
+    "tidy-downloads.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 9
+    },
+    "modules/tidy-downloads/tidy-downloads-ai-models.uc.js": {
+      "include": ["chrome://browser/content/browser.xhtml"],
+      "loadOrder": 10
+    }
+  },
+  "preferences": "preferences.json",
+  "author": "Vertex",
+  "version": "4.2.3",
+  "tags": ["sine", "fx-autoconfig", "Downloads", "Tidy Pack"],
+  "createdAt": "2025-05-24",
+  "updatedAt": "2026-10-30",
+  "ai": "yes",
+  "fork": ["zen"]
+}
