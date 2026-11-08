@@ -9,6 +9,9 @@
 # Active SilentSDDM preset: kanagawa-dragon or kanagawa-lotus (files in sddm/configs/)
 preset=kanagawa-dragon
 
+# newer CachyOS ISOs (e.g. 260809) ship Plasma Login Manager; --force swaps the display-manager.service link to SDDM (takes effect next boot)
+sudo systemctl enable --force sddm.service
+
 theme=/usr/share/sddm/themes/silent
 [ -d "$theme" ] || { echo "sddm-silent-theme not installed; skipping login screen theme"; exit 0; }
 sudo kwriteconfig6 --file /etc/sddm.conf.d/kde_settings.conf --group Theme --key Current silent

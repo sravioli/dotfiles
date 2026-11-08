@@ -4,7 +4,7 @@
 set -e
 command -v pacman >/dev/null || { echo "pacman not found: install the packages below manually"; exit 0; }
 # -Syu first: a fresh install still has the ISO's package databases, and yay won't sync them
-sudo pacman -Syu --needed --noconfirm yay vimix-cursors
+sudo pacman -Syu --needed --noconfirm yay vimix-cursors sddm
 pkgs="kora-icon-theme wezterm-nightly-bin spotify zen-browser-bin
   kdeconnect proton-vpn-gtk-app protonmail-bridge proton-pass-bin proton-pass-cli-bin proton-mail-bin
   gitui git-delta github-cli cocogitto stylua lua51 luarocks otf-monaspace-nerdfonts ttf-firacode-nerd
