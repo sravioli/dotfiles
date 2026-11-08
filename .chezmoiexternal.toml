@@ -20,3 +20,9 @@ type = "archive"
 url = "https://codeload.github.com/kanagawa-community/bat/tar.gz/7627164434c3733326c219c8baa13fdc578c33a7"
 stripComponents = 2
 include = ["*/themes/*.tmTheme"]
+
+# GitAlias aliases, included from ~/.gitconfig; downloaded on install, refreshed weekly on apply
+[".config/git/gitalias.gitconfig"]
+type = "file"
+url = "https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt"
+refreshPeriod = "168h"
