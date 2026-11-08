@@ -68,6 +68,12 @@ chezmoi re-add
 
 The tests go from a few seconds to a full install.
 
+Install what the tests need (chezmoi, podman for the container, QEMU and UEFI firmware for the VM):
+
+```sh
+sudo pacman -S --needed chezmoi podman qemu-desktop edk2-ovmf
+```
+
 ### Quick check
 
 Renders and syntax-checks every script, then applies the dotfiles into a temporary folder. GitHub Actions runs it on every push, and I run it as a git pre-commit hook too.

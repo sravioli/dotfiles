@@ -12,7 +12,9 @@ pkgs="kora-icon-theme wezterm-nightly-bin spotify zen-browser-bin
   kdeconnect proton-vpn-gtk-app protonmail-bridge proton-pass-bin proton-pass-cli-bin proton-mail-bin
   gitui git-delta github-cli cocogitto stylua lua51 luarocks otf-monaspace-nerdfonts ttf-firacode-nerd
   calibre mkvtoolnix-gui vlc qbittorrent localsend yacreader-poppler torbrowser-launcher spicetify-bin
-  sddm-silent-theme"
+  sddm-silent-theme
+  neovim tmux npm yarn uv prettier markdownlint-cli2 yamllint meld wl-clipboard opencode-beta ollama
+  handbrake-full nvtop nvidia-prime rog-control-center btop cava"
 # AUR packages; --noconfirm skips PKGBUILD review. yay keeps going past failed builds;
 # don't fail the script on them, or chezmoi aborts the apply before writing any dotfiles.
 # shellcheck disable=SC2086
