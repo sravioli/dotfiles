@@ -1,9 +1,19 @@
 #!/bin/sh
 # Login screen theme lives in /etc and /usr (outside chezmoi). Writes to kde_settings.conf, the file
 # System Settings > Login Screen uses, so the theme can still be changed from there.
-# sddm/silent.conf.user hash: {{ include "sddm/silent.conf.user" | sha256sum }}
+# Re-runs when any file under sddm/ changes:
+{{- range glob (joinPath .chezmoi.sourceDir "sddm/*/*") }}
+# {{ base . }}: {{ include . | sha256sum }}
+{{- end }}
+
+# Active SilentSDDM preset: kanagawa-dragon or kanagawa-lotus (files in sddm/configs/)
+preset=kanagawa-dragon
+
 theme=/usr/share/sddm/themes/silent
 [ -d "$theme" ] || { echo "sddm-silent-theme not installed; skipping login screen theme"; exit 0; }
 sudo kwriteconfig6 --file /etc/sddm.conf.d/kde_settings.conf --group Theme --key Current silent
-# .user overrides survive package upgrades; System Settings' theme Configure dialog edits the same file
-sudo install -m 644 "{{ .chezmoi.sourceDir }}/sddm/silent.conf.user" "$theme/configs/default.conf.user"
+# metadata.desktop is a pacman backup file, so the preset choice survives upgrades
+sudo sed -i "s|^ConfigFile=.*|ConfigFile=configs/$preset.conf|" "$theme/metadata.desktop"
+# both presets are installed so either can be picked; the theme only loads backgrounds from its own backgrounds/ folder
+sudo install -m 644 "{{ .chezmoi.sourceDir }}"/sddm/configs/* "$theme/configs/"
+sudo install -m 644 "{{ .chezmoi.sourceDir }}"/sddm/backgrounds/* "$theme/backgrounds/"
