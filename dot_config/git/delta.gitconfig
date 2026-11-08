@@ -9,7 +9,6 @@
 
 [delta]
   features = kanagawa-wave
-  syntax-theme = kanagawa-wave
   side-by-side = true
   true-color = always
   navigate = true    # use n and N to move between diff sections

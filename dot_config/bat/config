@@ -1,0 +1,2 @@
+# kanagawa-community/bat; fixed to wave like fish and delta (light/dark auto-detection fails in pipes, e.g. fzf previews)
+--theme=kanagawa-wave

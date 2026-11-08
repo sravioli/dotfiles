@@ -1,0 +1,7 @@
+#!/bin/sh
+# Finishes the upstream kanagawa install steps chezmoi can't do as plain files.
+# fish_plugins: {{ include "dot_config/fish/fish_plugins" | sha256sum }}
+# externals (delta and bat themes): {{ include ".chezmoiexternal.toml" | sha256sum }}
+# fisher can hang for minutes when GitHub is unreachable; don't stall the apply
+timeout 60 fish -c 'fisher update' || echo "fisher update failed; run it by hand"
+bat cache --build >/dev/null || echo "bat cache --build failed; delta syntax highlighting falls back to the default"

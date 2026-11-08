@@ -6,3 +6,17 @@ url = "https://github.com/sravioli/nvim.git"
 [".config/wezterm"]
 type = "git-repo"
 url = "https://github.com/sravioli/wezterm.git"
+
+# kanagawa-community/delta install steps: theme gitconfigs into ~/.config/delta
+[".config/delta"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/delta/tar.gz/refs/tags/1.0.0"
+stripComponents = 2
+include = ["*/themes/*.gitconfig"]
+
+# kanagawa-community/bat install steps; no release yet, so pinned to a commit (bump SHA to update)
+[".config/bat/themes"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/bat/tar.gz/7627164434c3733326c219c8baa13fdc578c33a7"
+stripComponents = 2
+include = ["*/themes/*.tmTheme"]
