@@ -21,6 +21,13 @@ url = "https://codeload.github.com/kanagawa-community/bat/tar.gz/7627164434c3733
 stripComponents = 2
 include = ["*/themes/*.tmTheme"]
 
+# kanagawa-community/btop themes into ~/.config/btop/themes, selected in btop.conf
+[".config/btop/themes"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/btop/tar.gz/refs/tags/1.0.0"
+stripComponents = 2
+include = ["*/themes/*.theme"]
+
 # GitAlias aliases, included from ~/.gitconfig; downloaded on install, refreshed weekly on apply
 [".config/git/gitalias.gitconfig"]
 type = "file"
