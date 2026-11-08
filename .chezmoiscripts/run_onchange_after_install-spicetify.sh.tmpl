@@ -1,0 +1,13 @@
+#!/bin/sh
+# Applies the spicetify theme (Text, Kanagawa scheme) and marketplace to Spotify.
+# config: {{ include "dot_config/private_spicetify/config-xpui.ini.tmpl" | sha256sum }}
+# externals: {{ include ".chezmoiexternal.toml" | sha256sum }}
+spotify=/opt/spotify
+command -v spicetify >/dev/null && [ -d "$spotify" ] || { echo "spotify or spicetify not installed; skipping spicetify"; exit 0; }
+# spicetify patches Spotify's files in place (spicetify docs: make them user-writable)
+sudo chmod a+wr "$spotify" && sudo chmod -R a+wr "$spotify/Apps"
+# Spotify writes prefs on first launch; spicetify only needs the file to exist, so a fresh install needn't open Spotify first
+prefs="{{ .chezmoi.homeDir }}/.config/spotify/prefs"
+[ -f "$prefs" ] || { mkdir -p "$(dirname "$prefs")"; : > "$prefs"; }
+# -n: don't launch Spotify. Plain apply works once a backup exists; the first run has to back up first.
+spicetify -n apply >/dev/null 2>&1 || spicetify -n backup apply || echo "spicetify apply failed; run 'spicetify backup apply' by hand"

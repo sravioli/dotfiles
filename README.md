@@ -48,6 +48,7 @@ Besides copying the dotfiles, the scripts in `.chezmoiscripts/` handle what live
 - install the Layan GTK theme from a pinned upstream commit
 - install the Kanagawa themes for fish, delta and bat from [kanagawa-community](https://github.com/kanagawa-community)
 - make SDDM the login screen (recent CachyOS ISOs default to Plasma Login Manager) and theme it with [Silent](https://github.com/uiriansan/SilentSDDM) and a Kanagawa preset
+- theme Spotify with [Spicetify](https://spicetify.app): the Text theme's Kanagawa scheme and Marketplace, without having to open Spotify first
 - set the profile picture from `~/.face`
 
 My [Neovim](https://github.com/sravioli/nvim) and [WezTerm](https://github.com/sravioli/wezterm) configs have their own repos. The first apply clones them into `~/.config/nvim` and `~/.config/wezterm`, and after that chezmoi leaves them alone.

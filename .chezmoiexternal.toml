@@ -26,3 +26,16 @@ include = ["*/themes/*.tmTheme"]
 type = "file"
 url = "https://raw.githubusercontent.com/GitAlias/gitalias/main/gitalias.txt"
 refreshPeriod = "168h"
+
+# spicetify theme and marketplace, applied to Spotify by run_onchange_after_install-spicetify.sh.tmpl
+[".config/spicetify/Themes/Text"]
+type = "archive"
+url = "https://codeload.github.com/spicetify/spicetify-themes/tar.gz/faefe18f483b4b905082767757bc026116a4d4a6"
+stripComponents = 2
+include = ["*/text/*.*"]  # theme files only, not the screenshots folder
+
+[".config/spicetify/CustomApps/marketplace"]
+type = "archive"
+url = "https://github.com/spicetify/marketplace/releases/download/v1.0.12/marketplace.zip"
+format = "zip"
+stripComponents = 1
