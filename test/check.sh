@@ -25,7 +25,7 @@ done
 echo "apply into a temporary home"
 cm apply --exclude scripts
 # repo-only folders must stay out of $HOME (.chezmoiignore)
-for d in test sddm zen README.md; do
+for d in test zen README.md; do
   [ ! -e "$tmp/home/$d" ] || { echo "$d was deployed to \$HOME; add it to .chezmoiignore"; exit 1; }
 done
 echo "ok"

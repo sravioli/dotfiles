@@ -1,12 +1,11 @@
 #!/bin/sh
 # Login screen theme lives in /etc and /usr (outside chezmoi). Writes to kde_settings.conf, the file
 # System Settings > Login Screen uses, so the theme can still be changed from there.
-# Re-runs when any file under sddm/ changes:
-{{- range glob (joinPath .chezmoi.sourceDir "sddm/*/*") }}
-# {{ base . }}: {{ include . | sha256sum }}
-{{- end }}
+# Presets come from kanagawa-community/silent-sddm, pinned: bump VERSION to update (re-runs this script).
+set -e
+VERSION=1.0.0
 
-# Active SilentSDDM preset: kanagawa-dragon or kanagawa-lotus (files in sddm/configs/)
+# Active SilentSDDM preset: kanagawa-wave, kanagawa-dragon or kanagawa-lotus
 preset=kanagawa-dragon
 
 # newer CachyOS ISOs (e.g. 260809) ship Plasma Login Manager; --force swaps the display-manager.service link to SDDM (takes effect next boot)
@@ -15,8 +14,10 @@ sudo systemctl enable --force sddm.service
 theme=/usr/share/sddm/themes/silent
 [ -d "$theme" ] || { echo "sddm-silent-theme not installed; skipping login screen theme"; exit 0; }
 sudo kwriteconfig6 --file /etc/sddm.conf.d/kde_settings.conf --group Theme --key Current silent
-# metadata.desktop is a pacman backup file, so the preset choice survives upgrades
-sudo sed -i "s|^ConfigFile=.*|ConfigFile=configs/$preset.conf|" "$theme/metadata.desktop"
-# both presets are installed so either can be picked; the theme only loads backgrounds from its own backgrounds/ folder
-sudo install -m 644 "{{ .chezmoi.sourceDir }}"/sddm/configs/* "$theme/configs/"
-sudo install -m 644 "{{ .chezmoi.sourceDir }}"/sddm/backgrounds/* "$theme/backgrounds/"
+
+src=$(mktemp -d)
+trap 'rm -rf "$src"' EXIT
+curl -fsSL "https://codeload.github.com/kanagawa-community/silent-sddm/tar.gz/refs/tags/$VERSION" | tar -xz -C "$src" --strip-components=1
+# its install.sh also points metadata.desktop (a pacman backup file, so it survives upgrades) at the preset
+# last: install all three so any can be picked from there, the chosen one last so it stays active
+for v in wave dragon lotus "${preset#kanagawa-}"; do "$src/install.sh" "$v"; done

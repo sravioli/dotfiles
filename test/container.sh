@@ -1,5 +1,5 @@
 #!/bin/sh
-# Fresh-install test (minutes, mostly AUR builds): full `chezmoi apply`, scripts included, as a new
+# Fresh-install test (minutes; skips the AUR packages that compile): full `chezmoi apply`, scripts included, as a new
 # sudo user in a throwaway CachyOS container. Can't cover the KDE session, the SDDM login screen or
 # the profile picture (no systemd/dbus); use test/vm.sh for those.
 set -eu
@@ -12,7 +12,7 @@ useradd -m -s /usr/bin/fish tester
 echo "tester ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/tester
 su - tester -s /bin/sh -c "
 set -eu
-chezmoi --source /dotfiles apply
+CHEZMOI_SKIP_COMPILED=1 chezmoi --source /dotfiles apply
 list=\$HOME/.local/state/chezmoi-missing-packages
 if [ -s \"\$list\" ]; then echo FAIL: packages did not install:; cat \"\$list\"; exit 1; fi
 # files on disk must match the repo after the scripts ran
