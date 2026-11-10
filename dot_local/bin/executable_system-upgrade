@@ -1,5 +1,5 @@
 #!/bin/sh
-# Upgrades packages, fish plugins, nvim plugins, uv tools, cleans up, re-patches Spotify with spicetify if it was updated, lists unmerged .pacnew files, and updates firmware last.
+# Upgrades packages, fish plugins, nvim plugins, uv tools, oh-my-posh, cleans up, re-patches Spotify with spicetify if it was updated, lists unmerged .pacnew files, and updates firmware last.
 set -e
 spotify_version() { pacman -Q spotify 2>/dev/null || true; }
 before=$(spotify_version)
@@ -9,6 +9,7 @@ sudo paccache -r
 fish -c "fisher update"
 nvim --headless "+Lazy! sync" +qa
 uv tool upgrade --all
+if command -v oh-my-posh >/dev/null; then oh-my-posh upgrade; fi
 after=$(spotify_version)
 if [ -n "$after" ] && [ "$before" != "$after" ] && command -v spicetify >/dev/null; then
     echo "spotify updated ($before -> $after); reapplying spicetify"
