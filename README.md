@@ -47,6 +47,7 @@ Besides copying the dotfiles, the scripts in `.chezmoiscripts/` handle what live
 - install packages from the repos and the AUR, including CachyOS's gaming packages (Steam, Lutris, Heroic, Proton)
 - install the Layan GTK theme from a pinned upstream commit
 - install the Kanagawa themes for fish, delta and bat from [kanagawa-community](https://github.com/kanagawa-community)
+- install [oh-my-posh](https://ohmyposh.dev) with its upstream installer, the first time only, and use its `amro` theme as the fish prompt
 - make SDDM the login screen (recent CachyOS ISOs default to Plasma Login Manager) and theme it with [Silent](https://github.com/uiriansan/SilentSDDM) and a Kanagawa preset
 - theme Spotify with [Spicetify](https://spicetify.app): the Text theme's Kanagawa scheme and Marketplace, without having to open Spotify first
 - install [Sine](https://github.com/CosmoCreeper/Sine) in Zen with the mods from `zen/sine-mods/`; Sine keeps them updated after that
@@ -57,6 +58,10 @@ My [Neovim](https://github.com/sravioli/nvim) and [WezTerm](https://github.com/s
 ## Customising
 
 To change the login screen preset, edit `preset=` in `.chezmoiscripts/run_onchange_after_set-sddm-theme.sh.tmpl`. The presets are `kanagawa-dragon` and `kanagawa-lotus`, both in `sddm/configs/`.
+
+To change the fish prompt, edit the `--config` path in `dot_config/fish/conf.d/prompt.fish`. The built-in themes are in `~/.cache/oh-my-posh/themes/`, and `system-upgrade` keeps oh-my-posh up to date.
+
+Shell settings are split by job under `dot_config/fish/`: `conf.d/aliases.fish` for aliases, `conf.d/path.fish` for PATH, `conf.d/prompt.fish` for the prompt, and one file per function in `functions/`, which fish autoloads.
 
 To save Zen mods you've added or changed in Sine, copy them and their settings back into the repo:
 
