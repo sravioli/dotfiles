@@ -13,11 +13,12 @@ jobs:
         with:
           fetch-depth: 0 # cog needs the history and the earlier tags
       - uses: cocogitto/cocogitto-action@v4
+        id: cog
         with:
-          install-only: true
+          command: changelog
+          args: --at ${{ github.ref_name }}
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          cog changelog --at "$GITHUB_REF_NAME" > notes.md
-          gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md
+          NOTES: ${{ steps.cog.outputs.stdout }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes "$NOTES"
