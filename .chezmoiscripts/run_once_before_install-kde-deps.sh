@@ -17,7 +17,7 @@ pkgs="kora-icon-theme wezterm-nightly-bin spotify zen-browser-bin
   calibre mkvtoolnix-gui vlc qbittorrent localsend yacreader-poppler torbrowser-launcher spicetify-bin
   sddm-silent-theme git breeze-icons konsole kate
   neovim tmux npm yarn uv prettier markdownlint-cli2 yamllint meld wl-clipboard opencode-beta ollama
-  jq imagemagick handbrake-full nvtop nvidia-prime rog-control-center btop cava pacman-contrib zoxide"
+  jq imagemagick handbrake-full nvtop nvidia-prime rog-control-center btop cava pacman-contrib zoxide yazi-nightly-bin"
 # test/container.sh sets CHEZMOI_SKIP_COMPILED: these AUR packages build from source and take very long
 if [ -n "${CHEZMOI_SKIP_COMPILED:-}" ]; then
   for p in yacreader-poppler handbrake-full; do pkgs=$(echo "$pkgs" | sed "s/ $p\b//"); done
