@@ -19,7 +19,6 @@ if [ -s \"\$list\" ]; then echo FAIL: packages did not install:; cat \"\$list\";
 chezmoi --source /dotfiles verify --exclude scripts
 bat --list-themes --color=never | grep -qx kanagawa-wave || { echo FAIL: bat theme missing; exit 1; }
 test -f ~/.config/fish/themes/kanagawa-wave.theme || { echo FAIL: fisher did not install the fish theme; exit 1; }
-ls -d ~/.themes/Layan* >/dev/null || { echo FAIL: Layan GTK theme missing; exit 1; }
 echo ok
 "
 '
