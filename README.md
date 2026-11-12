@@ -61,7 +61,7 @@ To change the login screen preset, edit `preset=` in `.chezmoiscripts/run_onchan
 
 To change the fish prompt, edit the `--config` path in `dot_config/fish/conf.d/prompt.fish`. The built-in themes are in `~/.cache/oh-my-posh/themes/`, and `system-upgrade` keeps oh-my-posh up to date.
 
-Shell settings are split by job under `dot_config/fish/`: `conf.d/aliases.fish` for aliases, `conf.d/path.fish` for PATH, `conf.d/prompt.fish` for the prompt, and one file per function in `functions/`, which fish autoloads.
+Shell settings are split by job under `dot_config/fish/`: `conf.d/aliases.fish` for aliases, `conf.d/path.fish` for PATH, `conf.d/prompt.fish` for the prompt, `conf.d/vi.fish` for vi mode (`jk` leaves insert mode), `conf.d/surround.fish` for nvim-surround's keys (`ds"`, `cs"'`, `ysiw)`, `yss(`, visual `S(`; any punctuation works, plus tags with `t` and calls with `f`), and one file per function in `functions/`, which fish autoloads.
 
 To save Zen mods you've added or changed in Sine, copy them and their settings back into the repo:
 
