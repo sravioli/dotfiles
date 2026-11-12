@@ -63,5 +63,4 @@ Scale=1.1
 XwaylandEisNoPromptApps=steam
 
 [org.kde.kdecoration2]
-library=org.kde.kwin.aurorae.v2
 theme=__aurorae__svg__kanagawa-wave

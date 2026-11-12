@@ -137,10 +137,12 @@ BrowserApplication=vivaldi-stable.desktop
 ColorScheme=KanagawaWave
 ColorSchemeHash=8d00fcdaa99e5199cbe00cb604b69f57267b9e8a
 
+[Icons]
+Theme=Kanagawa-Kora-Wave
+
 [KDE]
 AnimationDurationFactor=0.25
 LookAndFeelPackage=org.kanagawa-community.wave
-widgetStyle=Breeze
 contrast=4
 frameContrast=0.2
 
@@ -172,6 +174,3 @@ activeForeground=220,215,186
 inactiveBackground=22,22,29
 inactiveBlend=200,192,147
 inactiveForeground=200,192,147
-
-[Icons]
-Theme=Kanagawa-Kora-Wave

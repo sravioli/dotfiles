@@ -51,6 +51,7 @@ Besides copying the dotfiles, the scripts in `.chezmoiscripts/` handle what live
 - make SDDM the login screen (recent CachyOS ISOs default to Plasma Login Manager) and theme it with [Silent](https://github.com/uiriansan/SilentSDDM) and a Kanagawa preset
 - theme Spotify with [Spicetify](https://spicetify.app): the Text theme's Kanagawa scheme and Marketplace, without having to open Spotify first
 - install [Sine](https://github.com/CosmoCreeper/Sine) in Zen with the mods from `zen/sine-mods/`; Sine keeps them updated after that
+- apply the Kanagawa Wave global theme once, if a Plasma session is running (Plasma stores its settings in `~/.config/kdedefaults`, which chezmoi doesn't track)
 - set the profile picture from `~/.face`
 
 My [Neovim](https://github.com/sravioli/nvim) and [WezTerm](https://github.com/sravioli/wezterm) configs have their own repos. The first apply clones them into `~/.config/nvim` and `~/.config/wezterm`, and after that chezmoi leaves them alone.
