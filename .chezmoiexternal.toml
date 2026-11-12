@@ -28,6 +28,18 @@ url = "https://codeload.github.com/kanagawa-community/bat/tar.gz/7627164434c3733
 stripComponents = 2
 include = ["*/themes/*.tmTheme"]
 
+# kanagawa-community/gitui themes into ~/.config/gitui; no release yet, so pinned to a commit (bump SHA to update). theme.ron links to the wave one
+[".config/gitui"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/gitui/tar.gz/8829ce34cfd86189a9fa9669c53ef00d5b79e2f7"
+stripComponents = 2
+include = ["*/themes/*.ron"]
+
+# the wave theme's diff syntax colors; gitui reads them from its own folder (same bat commit as above)
+[".config/gitui/kanagawa-wave.tmTheme"]
+type = "file"
+url = "https://raw.githubusercontent.com/kanagawa-community/bat/7627164434c3733326c219c8baa13fdc578c33a7/themes/kanagawa-wave.tmTheme"
+
 # kanagawa-community/btop themes into ~/.config/btop/themes, selected in btop.conf
 [".config/btop/themes"]
 type = "archive"
