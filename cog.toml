@@ -1,0 +1,14 @@
+# Versions live in git tags only: `cog bump` tags the latest commit (no bump commit, no CHANGELOG.md).
+# The release workflow builds the GitHub release notes from the commits with `cog changelog`.
+tag_prefix = ""
+branch_whitelist = ["main"]
+ignore_merge_commits = true
+disable_changelog = true
+disable_bump_commit = true
+
+[changelog]
+template = "remote"
+remote = "github.com"
+repository = "dotfiles"
+owner = "sravioli"
+authors = [{ signature = "sravioli", username = "sravioli" }]
