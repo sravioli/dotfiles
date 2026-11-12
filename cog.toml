@@ -1,10 +1,12 @@
-# Versions live in git tags only: `cog bump` tags the latest commit (no bump commit, no CHANGELOG.md).
+# Versions live in git tags only: `cog bump` tags the latest commit (no bump commit, no CHANGELOG.md) and pushes it.
 # The release workflow builds the GitHub release notes from the commits with `cog changelog`.
 tag_prefix = ""
 branch_whitelist = ["main"]
 ignore_merge_commits = true
 disable_changelog = true
 disable_bump_commit = true
+# pushing the tag is what triggers the release workflow; HEAD goes first so the notes have all the commits
+post_bump_hooks = ["git push origin HEAD {{version_tag}}"]
 
 [changelog]
 template = "remote"
