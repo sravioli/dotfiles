@@ -6,5 +6,7 @@ set -g fish_sequence_key_delay_ms 300
 # fish runs this after installing the vi bindings
 function fish_user_key_bindings
     bind -M insert -m default jk backward-char repaint-mode
+    bind -M insert ctrl-r history-pager
+    bind -M default -m insert ? history-pager repaint-mode
     __surround_bindings
 end
