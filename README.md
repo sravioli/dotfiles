@@ -46,7 +46,7 @@ Besides copying the dotfiles, the scripts in `.chezmoiscripts/` handle what live
 - rank the pacman mirrors, the same as the "Rank mirrors" button in CachyOS Hello
 - install packages from the repos and the AUR, including CachyOS's gaming packages (Steam, Lutris, Heroic, Proton)
 - install the Layan GTK theme from a pinned upstream commit
-- install the Kanagawa themes for fish, delta, bat and gitui (wave) from [kanagawa-community](https://github.com/kanagawa-community)
+- install the Kanagawa themes for fish, delta, bat, btop and gitui (wave) from [kanagawa-community](https://github.com/kanagawa-community)
 - install [oh-my-posh](https://ohmyposh.dev) with its upstream installer, the first time only, and use the [Kanagawa Wave](https://github.com/kanagawa-community/oh-my-posh) theme as the fish prompt, extended in `dot_config/oh-my-posh/config.omp.json` (short bracketed Vi mode label, `[I]` shown in insert mode)
 - make SDDM the login screen (recent CachyOS ISOs default to Plasma Login Manager) and theme it with [Silent](https://github.com/uiriansan/SilentSDDM) and a Kanagawa preset
 - theme Spotify with [Spicetify](https://spicetify.app): the Text theme's Kanagawa scheme and Marketplace, without having to open Spotify first
@@ -62,7 +62,7 @@ To change the login screen preset, edit `preset=` in `.chezmoiscripts/run_onchan
 
 To change the fish prompt, edit `extends` in `dot_config/oh-my-posh/config.omp.json` (or its `var` block for the theme options). The Kanagawa variants (`wave`, `dragon`, `lotus`, `dynamic`) are in `~/.config/oh-my-posh/themes/`, and `system-upgrade` keeps oh-my-posh up to date.
 
-Shell settings are split by job under `dot_config/fish/`: `conf.d/aliases.fish` for aliases, `conf.d/path.fish` for PATH, `conf.d/prompt.fish` for the prompt, `conf.d/vi.fish` for vi mode (`jk` leaves insert mode), `conf.d/surround.fish` for nvim-surround's keys (`ds"`, `cs"'`, `ysiw)`, `yss(`, visual `S(`; any punctuation works, plus tags with `t` and calls with `f`), and one file per function in `functions/`, which fish autoloads.
+Shell settings are split by job under `dot_config/fish/`: `conf.d/aliases.fish` for aliases, `conf.d/path.fish` for PATH, `conf.d/prompt.fish` for the prompt, `conf.d/vi.fish` for vi mode (`jk` leaves insert mode, `ctrl-r` and `?` search the history), `conf.d/surround.fish` for nvim-surround's keys (`ds"`, `cs"'`, `ysiw)`, `yss(`, visual `S(`; any punctuation works, plus tags with `t` and calls with `f`), and one file per function in `functions/`, which fish autoloads. `y` is the [yazi](https://yazi-rs.github.io) wrapper that changes to the directory you quit yazi in; yazi itself is the AUR nightly build.
 
 To save Zen mods you've added or changed in Sine, copy them and their settings back into the repo:
 
@@ -73,7 +73,7 @@ rsync -a --delete --exclude '*.zip' ~/.config/zen/*.Default\ \(release\)/chrome/
 
 The settings are applied on the next `chezmoi apply`, while Zen is closed. API keys for Tidy Downloads' AI renaming are never saved.
 
-The delta and bat themes are pinned in `.chezmoiexternal.toml`. Change the tag or commit there to update them.
+The delta, bat, btop, gitui and oh-my-posh themes are pinned in `.chezmoiexternal.toml`. Change the tag or commit there to update them. gitui uses the wave theme through the `theme.ron` link in `dot_config/gitui/`.
 
 After changing settings through KDE System Settings, copy the new files back into the repo:
 
