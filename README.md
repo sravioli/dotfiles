@@ -47,7 +47,7 @@ Besides copying the dotfiles, the scripts in `.chezmoiscripts/` handle what live
 - install packages from the repos and the AUR, including CachyOS's gaming packages (Steam, Lutris, Heroic, Proton)
 - install the Layan GTK theme from a pinned upstream commit
 - install the Kanagawa themes for fish, delta and bat from [kanagawa-community](https://github.com/kanagawa-community)
-- install [oh-my-posh](https://ohmyposh.dev) with its upstream installer, the first time only, and use the [Kanagawa Wave](https://github.com/kanagawa-community/oh-my-posh) theme as the fish prompt, extended in `dot_config/oh-my-posh/config.omp.json` (short Vi mode label, `I` shown in insert mode)
+- install [oh-my-posh](https://ohmyposh.dev) with its upstream installer, the first time only, and use the [Kanagawa Wave](https://github.com/kanagawa-community/oh-my-posh) theme as the fish prompt, extended in `dot_config/oh-my-posh/config.omp.json` (short bracketed Vi mode label, `[I]` shown in insert mode)
 - make SDDM the login screen (recent CachyOS ISOs default to Plasma Login Manager) and theme it with [Silent](https://github.com/uiriansan/SilentSDDM) and a Kanagawa preset
 - theme Spotify with [Spicetify](https://spicetify.app): the Text theme's Kanagawa scheme and Marketplace, without having to open Spotify first
 - install [Sine](https://github.com/CosmoCreeper/Sine) in Zen with the mods from `zen/sine-mods/`; Sine keeps them updated after that
