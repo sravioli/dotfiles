@@ -1,4 +1,4 @@
-# oh-my-posh prompt; the theme file comes from the installer's cache
-if status is-interactive; and command -q oh-my-posh; and test -f ~/.cache/oh-my-posh/themes/amro.omp.json
-    oh-my-posh init fish --config ~/.cache/oh-my-posh/themes/amro.omp.json | source
+# oh-my-posh prompt: ~/.config/oh-my-posh/config.omp.json extends the Kanagawa Wave theme from .chezmoiexternal.toml
+if status is-interactive; and command -q oh-my-posh; and test -f ~/.config/oh-my-posh/themes/kanagawa-wave.omp.json
+    oh-my-posh init fish --config ~/.config/oh-my-posh/config.omp.json | source
 end

@@ -1,0 +1,5 @@
+{
+  "extends": "themes/kanagawa-wave.omp.json",
+  "version": 4,
+  "var": { "vim_show_insert": true, "vim_short": true }
+}

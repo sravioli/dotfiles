@@ -14,6 +14,13 @@ url = "https://codeload.github.com/kanagawa-community/delta/tar.gz/refs/tags/1.0
 stripComponents = 2
 include = ["*/themes/*.gitconfig"]
 
+# kanagawa-community/oh-my-posh themes into ~/.config/oh-my-posh/themes, selected in conf.d/prompt.fish
+[".config/oh-my-posh/themes"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/oh-my-posh/tar.gz/refs/tags/1.0.0"
+stripComponents = 2
+include = ["*/themes/*.omp.json"]
+
 # kanagawa-community/bat install steps; no release yet, so pinned to a commit (bump SHA to update)
 [".config/bat/themes"]
 type = "archive"
