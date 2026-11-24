@@ -48,7 +48,7 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][173][Applets][175][Configuration][General]
-launchers=applications:org.wezfurlong.wezterm.desktop,applications:spotify.desktop,applications:zen.desktop
+launchers=applications:org.wezfurlong.wezterm.desktop,applications:spotifast.desktop,applications:zen.desktop
 
 [Containments][173][Applets][176]
 immutability=1
