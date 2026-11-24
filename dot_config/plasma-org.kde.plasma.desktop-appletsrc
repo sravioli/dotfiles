@@ -310,8 +310,8 @@ simpleFontSizeMode=manual
 simpleIconAutoSz=40
 simpleIconSizeManual=24
 simpleIconSizeMode=manual
-simplePanelDim=24
-simplePanelLargeDim=40
+simplePanelDim=28
+simplePanelLargeDim=44
 timezone=Europe/Rome
 
 [Containments][220][General]

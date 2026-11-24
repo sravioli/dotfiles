@@ -134,11 +134,7 @@ ForegroundVisited=149,127,184
 
 [General]
 BrowserApplication=vivaldi-stable.desktop
-ColorScheme=KanagawaWave
 ColorSchemeHash=8d00fcdaa99e5199cbe00cb604b69f57267b9e8a
-
-[Icons]
-Theme=Kanagawa-Kora-Wave
 
 [KDE]
 AnimationDurationFactor=0.25

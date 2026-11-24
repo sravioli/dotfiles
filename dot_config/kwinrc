@@ -55,12 +55,9 @@ padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Windows_HDR]
-MaxLuminance=1800
+MaxLuminance=850
 Reference=350
 
 [Xwayland]
-Scale=1.1
+Scale=1.6
 XwaylandEisNoPromptApps=steam
-
-[org.kde.kdecoration2]
-theme=__aurorae__svg__kanagawa-wave
