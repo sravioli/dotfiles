@@ -1,0 +1,27 @@
+{{ if eq .chezmoi.hostname "Carbon" -}}
+#!/bin/sh
+# Carbon (Zephyrus G14 GA403UV) never wakes from s2idle, whatever the BIOS or kernel options, so closing
+# the lid hibernates instead (LidAction=2 in dot_config/private_powerdevilrc).
+# Hibernation needs a disk swap file (zram can't hold the image) and the NVIDIA driver kept out of the
+# initramfs: loaded there, it refuses the resume (pci_pm_freeze returns -5) and the session is lost.
+set -e
+
+# chwd's 10-chwd.conf adds the nvidia modules and says not to edit it; this runs after it and drops them
+conf=/etc/mkinitcpio.conf.d/99-no-nvidia-initramfs.conf
+# shellcheck disable=SC2016 # literal on purpose: mkinitcpio expands it
+line='MODULES=(${MODULES[@]/nvidia*/})'
+if [ "$(cat "$conf" 2>/dev/null)" != "$line" ]; then
+  echo "$line" | sudo tee "$conf" >/dev/null
+  sudo mkinitcpio -P
+fi
+
+# own subvolume so snapshots skip it; sized a bit above the 32 GB of RAM. No resume= needed: systemd
+# records the image location in an EFI variable when hibernating.
+swap=/swap/swapfile
+[ -d /swap ] || sudo btrfs subvolume create /swap
+[ -e "$swap" ] || sudo btrfs filesystem mkswapfile --size 33g --uuid clear "$swap"
+grep -q "^$swap " /etc/fstab || echo "$swap none swap defaults 0 0" | sudo tee -a /etc/fstab >/dev/null
+swapon --show=NAME --noheadings | grep -qx "$swap" || sudo swapon "$swap"
+
+sudo systemctl enable nvidia-suspend.service nvidia-resume.service nvidia-hibernate.service
+{{ end -}}

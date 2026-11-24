@@ -18,6 +18,7 @@ PowerProfile=balanced
 
 [Battery][SuspendAndShutdown]
 AutoSuspendAction=0
+LidAction=2
 
 [LowBattery][Display]
 DimDisplayIdleTimeoutSec=30

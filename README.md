@@ -48,6 +48,7 @@ The scripts in `.chezmoiscripts/` handle what lives outside the home folder:
 - install [Sine](https://github.com/CosmoCreeper/Sine) in [Zen](https://zen-browser.app) with the mods from `zen/sine-mods/`; Sine keeps them updated afterwards
 - apply the Kanagawa Wave global theme once, if a Plasma session is running (Plasma keeps its settings in `~/.config/kdedefaults`, which chezmoi doesn't track)
 - set the profile picture from `~/.face`
+- on Carbon only (Zephyrus G14 GA403UV, which never wakes from sleep): set up hibernation (a swap file, NVIDIA kept out of the initramfs) so closing the lid hibernates
 
 Themes for fish, delta, bat, btop, gitui and oh-my-posh come from [kanagawa-community](https://github.com/kanagawa-community) via `.chezmoiexternal.toml`, pinned to a tag or commit. Change the pin there to update.
 
