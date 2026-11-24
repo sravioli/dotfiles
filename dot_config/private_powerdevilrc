@@ -1,6 +1,6 @@
 [AC][Display]
 DimDisplayIdleTimeoutSec=60
-TurnOffDisplayIdleTimeoutSec=300
+TurnOffDisplayIdleTimeoutSec=120
 
 [AC][Performance]
 PowerProfile=performance
