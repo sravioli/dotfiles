@@ -65,3 +65,10 @@ type = "archive"
 url = "https://github.com/spicetify/marketplace/releases/download/v1.0.12/marketplace.zip"
 format = "zip"
 stripComponents = 1
+
+# kanagawa-community/spotifast skins into ~/.config/spotifast/skins; the palettes are tracked in dot_config/spotifast/themes (outline tweaked), and the active ones are set in modify_settings.json
+[".config/spotifast/skins"]
+type = "archive"
+url = "https://codeload.github.com/kanagawa-community/spotifast/tar.gz/refs/tags/1.0.0"
+stripComponents = 2
+include = ["*/skins/*"]

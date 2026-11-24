@@ -11,7 +11,7 @@ if command -v cachyos-rate-mirrors >/dev/null; then sudo cachyos-rate-mirrors ||
 yay=; command -v yay >/dev/null || yay=yay
 # shellcheck disable=SC2086 # empty $yay must vanish, not become an empty argument
 sudo pacman -Syu --needed --noconfirm $yay vimix-cursors sddm cachyos-gaming-meta cachyos-gaming-applications
-pkgs="kora-icon-theme wezterm-nightly-bin spotify zen-browser-bin
+pkgs="kora-icon-theme wezterm-nightly-bin spotify spotifast-bin zen-browser-bin
   kdeconnect proton-vpn-gtk-app protonmail-bridge proton-pass-bin proton-pass-cli-bin proton-mail-bin
   gitui git-delta github-cli cocogitto stylua lua51 luarocks otf-monaspace-nerdfonts ttf-firacode-nerd
   calibre mkvtoolnix-gui vlc qbittorrent localsend yacreader-poppler torbrowser-launcher spicetify-bin
